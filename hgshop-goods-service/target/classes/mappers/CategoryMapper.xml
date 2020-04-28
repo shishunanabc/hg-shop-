@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  <mapper namespace="com.shishunan.hgshop.dao.CategoryDao"> 
+  	<!-- 列表 -->
+  	<select id="list" resultMap="catMap">
+  		select * from hg_category where parent_id=#{value}
+  	</select>
+  	<resultMap type="Category" id="catMap">
+  		<id column="id" property="id"/>
+  		<result column="parent_id" property="parentId"/>
+  		<result column="name" property="name"/>
+  		<result column="path" property="path"/>
+  		<collection property="children" column="id" select="list"></collection>
+  	</resultMap>
+  </mapper>
