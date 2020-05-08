@@ -1,8 +1,12 @@
+D:\java\xiaosanjava\hgshop-parent\hgshop-goods-service\src\main\java\com\shishunan\hgshop\dao\SpuDao.java
+D:\java\xiaosanjava\hgshop-parent\hgshop-goods-service\src\main\java\com\shishunan\hgshop\service\impl\SpuServiceImpl.java
 D:\java\xiaosanjava\hgshop-parent\hgshop-goods-service\src\main\java\com\shishunan\hgshop\dao\CategoryDao.java
 D:\java\xiaosanjava\hgshop-parent\hgshop-goods-service\src\main\java\com\shishunan\hgshop\service\impl\CategoryServiceImpl.java
 D:\java\xiaosanjava\hgshop-parent\hgshop-goods-service\src\main\java\com\shishunan\hgshop\dao\BrandDao.java
+D:\java\xiaosanjava\hgshop-parent\hgshop-goods-service\src\main\java\com\shishunan\hgshop\service\impl\SkuServiceImpl.java
 D:\java\xiaosanjava\hgshop-parent\hgshop-goods-service\src\main\java\com\shishunan\hgshop\service\impl\BrandServiceImpl.java
 D:\java\xiaosanjava\hgshop-parent\hgshop-goods-service\src\main\java\com\shishunan\hgshop\dao\SpecDao.java
 D:\java\xiaosanjava\hgshop-parent\hgshop-goods-service\src\main\java\com\shishunan\hgshop\GoodsStarter.java
+D:\java\xiaosanjava\hgshop-parent\hgshop-goods-service\src\main\java\com\shishunan\hgshop\dao\SkuDao.java
 D:\java\xiaosanjava\hgshop-parent\hgshop-goods-service\src\main\java\com\shishunan\hgshop\service\impl\AdminServiceImpl.java
 D:\java\xiaosanjava\hgshop-parent\hgshop-goods-service\src\main\java\com\shishunan\hgshop\service\impl\SpecServiceImpl.java

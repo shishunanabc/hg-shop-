@@ -14,7 +14,10 @@
 
 	
 	<!-- 应用程序 -->
-	<dubbo:application name="dubbo-service-demo"  />
+	<dubbo:application name="dubbo-goods-service"  >
+		<dubbo:parameter key="qos.enable" value="false"/>
+	</dubbo:application>
+	
 	<!-- 注册中心 采用zookeeper 必须修改  -->
 	<dubbo:registry
 		address="zookeeper://192.168.65.129:2181" /> 

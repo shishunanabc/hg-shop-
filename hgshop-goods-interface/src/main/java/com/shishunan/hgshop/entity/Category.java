@@ -4,6 +4,8 @@ package com.shishunan.hgshop.entity;
 import java.io.Serializable;
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 public class Category implements Serializable{
 	/**
 	 * 
@@ -11,8 +13,10 @@ public class Category implements Serializable{
 	private static final long serialVersionUID = 1L;
 	private Integer id;
 	private int parentId;
+	@JsonProperty("text")
 	private String name;
 	private String path;
+	@JsonProperty("nodes")
 	private List<Category> children;
 	public Category() {
 		super();

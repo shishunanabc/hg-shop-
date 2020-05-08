@@ -10,7 +10,7 @@
     <title>Floating labels example · Bootstrap</title>
 
     <!-- Bootstrap core CSS -->
-	<link href="/resource/bootstrap4/css/bootstrap.css" rel="stylesheet" >
+	<link href="${pageContext.request.contextPath}/resource/bootstrap4/css/bootstrap.css" rel="stylesheet" >
 
 <meta name="theme-color" content="#563d7c">
 
@@ -37,7 +37,7 @@
   <body>
     <form class="form-signin"  method="POST">
   <div class="text-center mb-4">
-    <img class="mb-4" src="/resource/img/hgshop.jpg" alt="" width="72" height="72">
+    <img class="mb-4" src="${pageContext.request.contextPath}/resource/img/hgshop.jpg" alt="" width="72" height="72">
     <h1 class="h3 mb-3 font-weight-normal">豪哥商城</h1>
     <p>  京东网 </p>
   </div>

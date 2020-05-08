@@ -103,4 +103,15 @@ public class SpecController {
 		
 		return specService.update(spec)>0;
 	}
+	/**
+	 * 根据规格Id 获取规格所有的属性名称和值的列表
+	 * @param specId
+	 * @return
+	 */
+	@RequestMapping("getOptions")
+	@ResponseBody
+	public List<SpecOption> getOptions(int specId){
+		Spec spec = specService.getById(specId);
+		return spec==null?null:spec.getSpecOption();
+	}
 }

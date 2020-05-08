@@ -15,5 +15,9 @@ public interface BrandDao {
 	int delete(int[] ids);
 
 	int update(Brand brand);
+	//查看数据
+	Brand getById(@Param("id")int id);
+
+	List<Brand> listAll();
 	
 }

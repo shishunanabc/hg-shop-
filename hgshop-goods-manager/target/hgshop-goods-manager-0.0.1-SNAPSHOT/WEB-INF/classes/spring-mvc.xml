@@ -2,6 +2,7 @@
 	xmlns:dubbo="http://dubbo.apache.org/schema/dubbo"
 	xmlns="http://www.springframework.org/schema/beans"
 	xmlns:p="http://www.springframework.org/schema/p"
+	xmlns:aop="http://www.springframework.org/schema/aop"
 	xmlns:context="http://www.springframework.org/schema/context"
 	xmlns:mvc="http://www.springframework.org/schema/mvc"
 	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
@@ -14,7 +15,7 @@
 	<!-- <import resource="classpath:applicationContext-kafka-consumer.xml"/>  -->
 	<!-- 扫描器   必须修改 -->
 	<context:component-scan
-		base-package="com.shishunan.hgshop.controller" />
+		base-package="com.shishunan.hgshop.controller,com.shishunan.hgshop.common" />
 	<!-- 视图解析图 -->
 	<bean
 		class="org.springframework.web.servlet.view.InternalResourceViewResolver">
@@ -28,6 +29,8 @@
 	<!-- mvc注解驱动 -->
 	<mvc:annotation-driven/>
 	
+	<!-- 日志 -->
+	<!-- <bean id="log" class="com.shishunan.hgshop.LogController"></bean> -->
 	
 	<!-- 配置redis的配置   必须修改-->
 		<bean id="jedisConnectionFactory"

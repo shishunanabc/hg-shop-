@@ -39,4 +39,8 @@
   	<select id="getById" resultMap="specMapper">
 		SELECT * FROM hg_spec WHERE id=#{id}
 	</select>
+	<!-- List<Spec> listAll(); -->
+	<select id="listAll" resultType="spec">
+		select id,spec_name as specName from hg_spec order by spec_name
+	</select>
   </mapper>

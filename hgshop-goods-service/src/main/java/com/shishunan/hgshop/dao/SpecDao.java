@@ -23,5 +23,7 @@ public interface SpecDao {
 
 	Spec getById(@Param("id")int id);
 
+	List<Spec> listAll();
+
 
 }

@@ -1,5 +1,7 @@
 package com.shishunan.hgshop.service.impl;
 
+import java.util.List;
+
 import org.apache.dubbo.config.annotation.Service;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -62,6 +64,12 @@ public class SpecServiceImpl implements SpecService{
 	public Spec getById(int id) {
 		// TODO Auto-generated method stub
 		return specDao.getById(id);
+	}
+
+	@Override
+	public List<Spec> listAll() {
+		// TODO Auto-generated method stub
+		return specDao.listAll();
 	}
 
 }

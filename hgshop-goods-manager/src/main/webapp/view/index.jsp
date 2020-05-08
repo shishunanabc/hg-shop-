@@ -9,12 +9,12 @@
     <meta name="author" content="Mark Otto, Jacob Thornton, and Bootstrap contributors">
     <meta name="generator" content="Jekyll v3.8.6">
     <title>商城后台管理系统</title>
-  	<script type="text/javascript" src="/resource/jquery/jquery-3.4.1.js"></script>
+  	<script type="text/javascript" src="${pageContext.request.contextPath}/resource/jquery/jquery-3.4.1.js"></script>
 
     <link rel="canonical" href="https://v4.bootcss.com/docs/examples/dashboard/">
 
     <!-- Bootstrap core CSS -->
-	<link href="/resource/bootstrap4/css/bootstrap.css" rel="stylesheet" >
+	<link href="${pageContext.request.contextPath}/resource/bootstrap4/css/bootstrap.css" rel="stylesheet" >
 
     <!-- Favicons -->
 <meta name="theme-color" content="#563d7c">
@@ -69,13 +69,13 @@
             </a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="javascript:void(0)"  data-toggle="/category/list" >
+            <a class="nav-link active" href="javascript:void(0)"  data-toggle="/cat/list" >
               <span data-feather="file"></span>
               		分类管理
             </a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="javascript:void(0)" data-toggle="/spu/list" >
+            <a class="nav-link active" href="javascript:void(0)" data-toggle="/spu/list" >
               <span data-feather="shopping-cart"></span>
               	spu管理
             </a>
@@ -114,7 +114,7 @@
 
     <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-4">
       <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
-        <h1 class="h2">Dashboard</h1>
+        <h1 class="h2" id="workTitle">Dashboard</h1>
         <div class="btn-toolbar mb-2 mb-md-0">
           <div class="btn-group mr-2">
             <button type="button" class="btn btn-sm btn-outline-secondary">Share</button>
@@ -137,8 +137,9 @@
 	<script type="text/javascript">
 		$(".nav-link").click(function(){
 			var url  = $(this).attr("data-toggle");
+			var text=$(this).text();
+			$("#workTitle").html(text);
 			$("#workArea").load(url);
-			
 		})
 	
 	</script>

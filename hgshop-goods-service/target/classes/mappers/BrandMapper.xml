@@ -9,12 +9,16 @@
   		values(#{name},#{firstChar},0)
   	</insert>
   	<!-- 查询 -->
-  	<select id="list" resultType="brand">
+  	<select id="list" resultType="Brand">
   		select id,name,first_char firstChar from hg_brand
   		where deleted_flag=0
   		<if test="firstChar!=null and firstChar!=''">
   			and first_char=#{firstChar}
   		</if>
+  	</select>
+  	<select id="listAll" resultType="Brand">
+  		select id,name,first_char firstChar from hg_brand
+  		where deleted_flag=0 order by name ASC
   	</select>
   	<!-- 删除 -->
   	<update id="delete">
@@ -28,4 +32,11 @@
   		update hg_brand set name=#{name},first_char=#{firstChar}
   		where id=#{id}
   	</update>
+  	<select id="getById" resultType="Brand">
+  		select * from hg_brand where id=#{id}
+  	</select>
+  	<select id="findById" resultType="Brand">
+  		select id,name,first_char firstChar from hg_brand
+  		where id=0
+  	</select>
   </mapper>

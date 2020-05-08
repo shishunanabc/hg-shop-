@@ -14,4 +14,21 @@
   		<result column="path" property="path"/>
   		<collection property="children" column="id" select="list"></collection>
   	</resultMap>
+  	
+  	<insert id="add" useGeneratedKeys="true" keyColumn="id" keyProperty="id">
+  		insert into hg_category(parent_id,name,path) values(#{parentId},#{name},#{path})
+  	</insert>
+  	
+  	<update id="update">
+  		update hg_category set name=#{name},path=#{path}
+  		where id=#{id}
+  	</update>
+  	
+  	<delete id="delete">
+  		delete from hg_category where id=#{value}
+  	</delete>
+  	
+  	<select id="findById" resultType="Category">
+  		select id,name from hg_category where id=#{value}
+  	</select>
   </mapper>

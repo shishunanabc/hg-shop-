@@ -1,5 +1,7 @@
 package com.shishunan.hgshop.service;
 
+import java.util.List;
+
 import com.github.pagehelper.PageInfo;
 import com.shishunan.hgshop.entity.Brand;
 
@@ -12,4 +14,8 @@ public interface BrandService {
 	int deleteBatch(int[] ids);
 	//修改
 	int update(Brand brand);
+	
+	Brand getById(int id);
+	
+	public List<Brand> listAll();
 }

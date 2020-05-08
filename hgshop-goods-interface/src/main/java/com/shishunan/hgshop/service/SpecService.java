@@ -1,5 +1,7 @@
 package com.shishunan.hgshop.service;
 
+import java.util.List;
+
 import com.github.pagehelper.PageInfo;
 import com.shishunan.hgshop.entity.Spec;
 
@@ -17,4 +19,6 @@ public interface SpecService {
 	PageInfo<Spec> list(int page,int pageSize);
 
 	Spec getById(int id);
+
+	List<Spec> listAll();
 }
