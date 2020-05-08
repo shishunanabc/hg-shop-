@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  <mapper namespace="com.shishunan.hgshop.dao.SkuDao">
+  	<!-- List<Sku> list(SkuVo skuVo);  &lt==letter than  gt greater than -->
+	<select id="list" resultMap="skuMapper">
+		select * from hg_sku
+		<where>
+			<if test="keyWord != null and keyWord != ''">
+				and (sell_point like concat('%',#{keyWord},'%') or 
+				title like concat('%',#{keyWord},'%'))
+			</if>
+			<if test="maxPrice != null and maxPrice > 0.01">
+				and price &lt;= #{maxPrice}
+			</if>
+			<if test="minPrice != null and minPrice > 0.01">
+				and price &gt;= #{minPrice}
+			</if>
+			<if test="minTime != null">
+				and update_time &gt;= #{minTime}
+			</if>
+			<if test="maxTime != null">
+				and update_time &lt;= #{maxTime}
+			</if>
+		</where>
+		<if test="sortColumn != null">
+			<foreach collection="sortColumn" open="order by" item="c" separator=",">
+				${c} <if test="sortType = 'ASC' or sortType = 'DESC'">
+						${sortType}
+					 </if> 
+			</foreach>
+		</if>
+	</select>
+	<resultMap type="Sku" id="skuMapper">
+		<id column="id" property="id"/>
+		<result column="title" property="title"/>
+		<result column="sell_point" property="sellPoint"/>
+		<result column="price" property="price"/>
+		<result column="stock_count" property="stockCount"/>
+		<result column="barcode" property="barcode"/>
+		<result column="image" property="image"/>
+		<result column="status" property="status"/>
+		<result column="create_time" property="createTime"/>
+		<result column="update_time" property="updateTime"/>
+		<result column="market_price" property="marketPrice"/>
+		<result column="cart_thumbnail" property="cartThumbnail"/>
+		<result column="spu_id" property="spuId"/>
+		<association property="spu" column="spu_id" select="com.shishunan.hgshop.dao.SpuDao.findById"></association>
+		<collection property="optionList" column="skuId" select="findOptionsBySkuId"></collection>
+	</resultMap>
+	
+	<select id="findOptionsBySkuId" resultType="SpecOption">
+		select spec_id as specId,spec_option_id as id from hg_sku_spec where sku_id=#{value}
+	</select>
+	<!-- <select id="findById">
+		select * from hg_spu where id=#{value}
+	</select> -->
+	<!-- int add(Sku sku); -->
+	<insert id="add" useGeneratedKeys="true" keyColumn="id" keyProperty="id">
+		insert into hg_sku(title,sell_point,price,stock_count,barcode,
+		image,create_time,update_time,cost_price,market_price,spu_id,cart_thumbnail) values(
+		#{title},#{sellPoint},#{price},#{stockCount},#{barcode},
+		#{image},now(),now(),#{costPrice},#{marketPrice},#{spuId},#{cartThumbnail})
+	</insert>
+	<!-- int addSkuOption(@Param("skuId")Integer id, @Param("op")SpecOption specOption); -->
+	<insert id="addSkuOption">
+		insert into hg_sku_spec(sku_id,spec_id,spec_option_id) values(#{skuId},
+		#{op.specId},#{op.id})
+	</insert>
+	<!-- int deleteBySpuId(int[] ids); -->
+	<delete id="deleteBySpuId">
+		delete from hg_sku where spu_id in
+		<foreach collection="array" item="spuId" open="(" separator="," close=")">
+			#{spuId}
+		</foreach>
+	</delete>
+	<!-- int deleteSkuOptionBySkuId(int ...ids); -->
+	<delete id="deleteSkuOptionBySkuId">
+		delete from hg_sku_spec where sku_id in
+		<foreach collection="array" item="skuId" open="(" separator="," close=")">
+			#{skuId}
+		</foreach>
+	</delete>
+	<!-- int deleteById(int[] ids); -->
+	<delete id="deleteById">
+		delete from hg_sku where id in
+		<foreach collection="array" item="id" open="(" separator="," close=")">
+			#{id}
+		</foreach>
+	</delete>
+	<!-- int update(Sku sku); -->
+	<update id="update">
+		update hg_sku set title=#{title},sell_point=#{sellPoint},price=#{price},stock_count=#{stockCount},
+		barcode=#{barcode},image=#{image},update_time=now(),cost_price=#{costPrice},market_price=
+		#{marketPrice},cart_thumbnail=#{cartThumbnail}
+		where id=#{id}
+	</update>
+	<!-- Sku getById(int id); -->
+	<select id="getById" resultMap="skuMapper">
+		select *,id as skuId from hg_sku where id=#{value}
+	</select>
+	<!-- List<Sku> getBySpuId(int spuId); -->
+	<select id="getBySpuId" resultMap="skuMapper2">
+		select *,id as skuId from hg_sku where spu_id=#{value}
+	</select>
+	<resultMap type="Sku" id="skuMapper2">
+		<id column="id" property="id"/>
+		<result column="title" property="title"/>
+		<result column="sell_point" property="sellPoint"/>
+		<result column="price" property="price"/>
+		<result column="stock_count" property="stockCount"/>
+		<result column="barcode" property="barcode"/>
+		<result column="image" property="image"/>
+		<result column="status" property="status"/>
+		<result column="create_time" property="createTime"/>
+		<result column="update_time" property="updateTime"/>
+		<result column="market_price" property="marketPrice"/>
+		<result column="cart_thumbnail" property="cartThumbnail"/>
+		<result column="spu_id" property="spuId"/>
+		<collection property="optionList" column="skuId" select="getOptionsBySkuId"></collection>
+	</resultMap>
+	<select id="getOptionsBySkuId" resultType="SpecOption">
+		select ss.sku_id,ss.spec_id as specId,sp.spec_name as specName,
+		ss.spec_option_id as id,so.option_name as optionName 
+		from hg_sku_spec ss
+		left join hg_spec sp on sp.id=ss.spec_id
+		left join hg_spec_option so on so.id=ss.spec_option_id
+		where sku_id=#{value}
+	</select>
+  </mapper>

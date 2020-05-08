@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  <mapper namespace="com.shishunan.hgshop.dao.UserDao">
+  	<!-- int add(HgUser user); -->
+	<insert id="add" useGeneratedKeys="true" keyColumn="uid" keyProperty="uid">
+		insert into hg_user(username,password) values(#{username},#{password})
+	</insert>
+	<!-- HgUser getUserById(Integer uid); -->
+	<select id="getUserById" resultType="HgUser">
+		select * from hg_user where uid=#{value}
+	</select>
+	<!-- HgUser findByPwd(@Param("uname")String username, 
+	@Param("pwd")String pwdMd5); -->
+	<select id="findByPwd" resultType="HgUser">
+		select * from hg_user where username=#{uname} and password=#{pwd}
+	</select>
+	<!-- HgUser findByName(String username); -->
+	<select id="findByName" resultType="HgUser">
+		select * from hg_user where username=#{value} limit 1
+	</select>
+  </mapper>

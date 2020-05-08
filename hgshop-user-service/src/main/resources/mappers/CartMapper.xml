@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  <mapper namespace="com.shishunan.hgshop.dao.CartDao">
+  	<!-- int add(Integer uid, int skuId, int num); -->
+	<insert id="add">
+		insert into hg_cart(uid,pnum,skuid,createtime) value(#{uid},#{pnum},#{skuid},now())
+	</insert>
+	<!-- int delete(int ...ids); -->
+	<delete id="delete">
+		delete from hg_cart where id in
+		<foreach collection="array" item="id" open="(" separator="," close=")">
+			#{id}
+		</foreach>
+	</delete>
+	<!-- List<Cart> list(int uid); -->
+	<select id="list" resultType="Cart">
+		select c.id,c.pnum,c.skuid,c.uid,c.createtime, k.price unitPrice,
+		k.title skuName, (k.price*c.pnum) as sumTotal
+		from hg_cart c left join hg_sku k on k.id=c.skuid 
+		where c.uid=#{value}
+	</select>
+	<!-- List<Cart> listByIds(int[] ids); -->
+	<select id="listByIds" resultType="Cart">
+		select c.id,c.pnum,c.skuid,c.uid,c.createtime, k.price unitPrice,
+		k.title skuName, (k.price*c.pnum) as sumTotal
+		from hg_cart c left join hg_sku k on k.id=c.skuid 
+		where c.id in
+		<foreach collection="array" open="(" separator="," close=")" item="id">
+			#{id}
+		</foreach>
+	</select>
+	<!-- int deleteByIds(int[] ids); -->
+	<delete id="deleteByIds">
+		delete from hg_cart
+		where id in
+		<foreach collection="array" open="(" separator="," close=")" item="id">
+			#{id}
+		</foreach>
+	</delete>
+  </mapper>

@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  <mapper namespace="com.shishunan.hgshop.dao.SpuDao">
+  	<!-- List<Spu> list(SpuVo spuVo); -->
+	<select id="list" resultMap="SpuMapper">
+		select * from hg_spu
+		<where>
+			<if test="brandId != 0">
+				and brand_id=#{brandId}
+			</if>
+			<if test="categoryId != 0">
+				and category_id=#{categoryId}
+			</if>
+			<if test="goodsName != null and goodsName != ''">
+				and goods_name like concat('%',#{goodsName},'%')
+			</if>
+			<if test="caption != null and caption != ''">
+				and caption like concat('%',#{caption},'%')
+			</if>
+		</where>
+		<if test="orderField!=null and orderField!=''">
+			order by ${orderField} ${orderType}
+		</if>
+	</select>
+	<resultMap type="Spu" id="SpuMapper">
+		<id column="id" property="id"/>
+		<result column="goods_name" property="goodsName"/>
+		<result column="is_marketable" property="isMarketable"/>
+		<result column="brand_id" property="brandId"/>
+		<result column="caption" property="caption"/>
+		<result column="category_id" property="categoryId"/>
+		<result column="small_pic" property="smallPic"/>
+		<association property="brand" column="brand_id" select="com.shishunan.hgshop.dao.BrandDao.findById">
+		</association>
+		<association property="category" column="category_id" select="com.shishunan.hgshop.dao.CategoryDao.findById">
+		</association>
+	</resultMap>
+	<select id="findById" resultMap="SpuMapper">
+		select * from hg_spu where id=#{value}
+	</select>
+	<!-- int add(Spu spu); -->
+	<insert id="add">
+		INSERT INTO hg_spu(goods_name,is_marketable,brand_id,caption,category_id,small_pic)
+			VALUES(#{goodsName},#{isMarketable},#{brandId},#{caption},#{categoryId},#{smallPic})
+	</insert>
+	<!-- int update(Spu spu); -->
+
+	<!-- int delete(int[] ids); -->
+
+	<!-- Spu getById(int id); -->
+	<select id="getById" resultMap="SpuMapper">
+		SELECT * FROM hg_spu WHERE id=#{value}
+	</select>
+  </mapper>
